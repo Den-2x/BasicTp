@@ -1,0 +1,88 @@
+name: BasicTp
+version: 1.0.0
+main: basic.tp.BasicTp
+api-version: '1.21'
+folia-supported: true
+
+commands:
+  tpa:
+    description: Send a teleport request to a player
+    usage: /tpa <player>
+    permission: basictp.tpa
+  tpahere:
+    description: Request a player to teleport to you
+    usage: /tpahere <player>
+    permission: basictp.tpahere
+  tpaccept:
+    description: Accept a teleport request
+    usage: /tpaccept [player]
+    permission: basictp.tpaccept
+    aliases: [tpyes]
+  tpdeny:
+    description: Deny a teleport request
+    usage: /tpdeny [player]
+    permission: basictp.tpdeny
+    aliases: [tpno]
+  tpcancel:
+    description: Cancel your outgoing teleport request
+    usage: /tpcancel
+    permission: basictp.tpcancel
+    aliases: [tpacancel]
+  tp:
+    description: Teleport players (admin)
+    usage: /tp <player> [target]
+    permission: basictp.admin
+  tphere:
+    description: Teleport a player to you (admin)
+    usage: /tphere <player>
+    permission: basictp.admin
+  s:
+    description: Quick teleport to a player (admin)
+    usage: /s <player>
+    permission: basictp.admin
+  tplist:
+    description: List pending teleport requests
+    usage: /tplist
+    permission: basictp.tplist
+  tpignore:
+    description: Ignore teleport requests from a player
+    usage: /tpignore <player>
+    permission: basictp.tpignore
+
+permissions:
+  basictp.*:
+    description: All BasicTp permissions
+    default: op
+    children:
+      basictp.tpa: true
+      basictp.tpahere: true
+      basictp.tpaccept: true
+      basictp.tpdeny: true
+      basictp.tpcancel: true
+      basictp.admin: true
+      basictp.tplist: true
+      basictp.tpignore: true
+  basictp.tpa:
+    description: Allows using /tpa
+    default: true
+  basictp.tpahere:
+    description: Allows using /tpahere
+    default: true
+  basictp.tpaccept:
+    description: Allows using /tpaccept
+    default: true
+  basictp.tpdeny:
+    description: Allows using /tpdeny
+    default: true
+  basictp.tpcancel:
+    description: Allows using /tpcancel
+    default: true
+  basictp.admin:
+    description: Admin teleport permissions
+    default: op
+  basictp.tplist:
+    description: Allows using /tplist
+    default: true
+  basictp.tpignore:
+    description: Allows using /tpignore
+    default: true

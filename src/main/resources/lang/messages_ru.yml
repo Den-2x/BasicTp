@@ -1,0 +1,69 @@
+only-players: "Только игроки могут использовать эту команду"
+player-not-found: "Игрок не найден"
+no-permission: "У тебя нет прав"
+no-request: "Нет ожидающих запросов на телепортацию"
+player-offline: "Этот игрок больше не в сети"
+cooldown: "Подожди %d секунд"
+
+# tpa
+tpa-usage: "Использование: /tpa <игрок>"
+tpa-self: "Ты не можешь телепортироваться к себе"
+tpa-cross-world: "Этот игрок в другом мире"
+tpa-sent: "Запрос на телепортацию отправлен %s"
+tpa-incoming: "%s хочет телепортироваться к тебе"
+tpa-blocked: "Этот игрок не принимает запросы на телепортацию"
+
+# tpahere
+tpahere-usage: "Использование: /tpahere <игрок>"
+tpahere-self: "Ты не можешь отправить запрос самому себе"
+tpahere-sent: "Запрос отправлен %s"
+tpahere-incoming: "%s хочет, чтобы ты телепортировался к ним"
+
+# tpaccept
+tpaccept-usage: "Использование: /tpaccept [игрок]"
+tpaccept-done: "Принят запрос %s"
+tpaccept-notify: "%s принял твой запрос на телепортацию"
+tpaccept-here: "Телепортирован к %s"
+
+# tpdeny
+tpdeny-usage: "Использование: /tpdeny [игрок]"
+tpdeny-done: "Запрос на телепортацию отклонён"
+tpdeny-notify: "%s отклонил твой запрос на телепортацию"
+
+# tpcancel
+tpcancel-usage: "Использование: /tpcancel"
+tpcancel-none: "У тебя нет исходящих запросов"
+tpcancel-done: "Запрос на телепортацию отменён"
+
+# tp
+tp-usage: "Использование: /tp <игрок> [цель]"
+tp-teleported: "Телепортирован к %s"
+tp-teleported-other: "%s телепортирован к %s"
+tp-console-target: "Консоль должна указать целевого игрока"
+tp-target-not-found: "Целевой игрок не найден"
+
+# tphere
+tphere-usage: "Использование: /tphere <игрок>"
+tphere-done: "%s телепортирован к тебе"
+tphere-notify: "Ты был телепортирован к %s"
+
+# s
+s-usage: "Использование: /s <игрок>"
+s-done: "Телепортирован к %s"
+
+# buttons
+button-accept: "[Принять]"
+button-accept-hover: "Нажмите чтобы принять"
+button-deny: "[Отклонить]"
+button-deny-hover: "Нажмите чтобы отклонить"
+
+# tplist
+tplist-none: "Нет ожидающих запросов на телепортацию"
+tplist-tpa: "%s хочет телепортироваться к тебе"
+tplist-here: "%s хочет, чтобы ты телепортировался к ним"
+
+# tpignore
+tpignore-usage: "Использование: /tpignore <игрок>"
+tpignore-self: "Ты не можешь игнорировать себя"
+tpignore-added: "Запросы от %s игнорируются"
+tpignore-removed: "%s больше не игнорируется"

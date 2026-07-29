@@ -1,0 +1,69 @@
+only-players: "Only players can use this command"
+player-not-found: "Player not found"
+no-permission: "You don't have permission"
+no-request: "No pending teleport request"
+player-offline: "That player is no longer online"
+cooldown: "Please wait %d seconds"
+
+# tpa
+tpa-usage: "Usage: /tpa <player>"
+tpa-self: "You cannot teleport to yourself"
+tpa-cross-world: "That player is in another world"
+tpa-sent: "Teleport request sent to %s"
+tpa-incoming: "%s wants to teleport to you"
+tpa-blocked: "That player is not accepting teleport requests"
+
+# tpahere
+tpahere-usage: "Usage: /tpahere <player>"
+tpahere-self: "You cannot send a request to yourself"
+tpahere-sent: "Request sent to %s"
+tpahere-incoming: "%s wants you to teleport to them"
+
+# tpaccept
+tpaccept-usage: "Usage: /tpaccept [player]"
+tpaccept-done: "Accepted %s's request"
+tpaccept-notify: "%s accepted your request"
+tpaccept-here: "Teleported to %s"
+
+# tpdeny
+tpdeny-usage: "Usage: /tpdeny [player]"
+tpdeny-done: "Teleport request denied"
+tpdeny-notify: "%s denied your teleport request"
+
+# tpcancel
+tpcancel-usage: "Usage: /tpcancel"
+tpcancel-none: "You have no outgoing teleport requests"
+tpcancel-done: "Teleport request cancelled"
+
+# tp
+tp-usage: "Usage: /tp <player> [target]"
+tp-teleported: "Teleported to %s"
+tp-teleported-other: "Teleported %s to %s"
+tp-console-target: "Console must specify a target player"
+tp-target-not-found: "Target player not found"
+
+# tphere
+tphere-usage: "Usage: /tphere <player>"
+tphere-done: "Teleported %s to you"
+tphere-notify: "You were teleported to %s"
+
+# s
+s-usage: "Usage: /s <player>"
+s-done: "Teleported to %s"
+
+# buttons
+button-accept: "[Accept]"
+button-accept-hover: "Click to accept"
+button-deny: "[Deny]"
+button-deny-hover: "Click to deny"
+
+# tplist
+tplist-none: "No pending teleport requests"
+tplist-tpa: "%s wants to teleport to you"
+tplist-here: "%s wants you to teleport to them"
+
+# tpignore
+tpignore-usage: "Usage: /tpignore <player>"
+tpignore-self: "You cannot ignore yourself"
+tpignore-added: "Ignored teleport requests from %s"
+tpignore-removed: "No longer ignoring %s"

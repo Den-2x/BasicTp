@@ -1,0 +1,14 @@
+# timeout in seconds before a request expires
+request-timeout: 60
+
+# cooldown in seconds between requests
+cooldown: 5
+
+# allow cross-world teleportation
+allow-cross-world: true
+
+# show particle effects on teleport
+particle-effects: true
+
+# language (en or ru)
+lang: en
