@@ -46,6 +46,10 @@ public class CooldownUtil {
         cooldowns.remove(uuid);
     }
 
+    public void cleanup() {
+        cooldowns.values().removeIf(expiry -> System.currentTimeMillis() >= expiry);
+    }
+
     public void clear() {
         cooldowns.clear();
     }

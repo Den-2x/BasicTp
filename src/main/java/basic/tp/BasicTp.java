@@ -14,6 +14,9 @@ public class BasicTp extends JavaPlugin {
     private RequestManager requestManager;
     private CooldownUtil cooldownUtil;
     private boolean particleEffects;
+    private boolean allowCrossWorld;
+    private Object requestCleanupTask;
+    private Object cooldownCleanupTask;
 
     @Override
     public void onEnable() {
@@ -24,6 +27,7 @@ public class BasicTp extends JavaPlugin {
             var timeout = getConfig().getInt("request-timeout", 120);
             var cooldown = getConfig().getInt("cooldown", 5);
             particleEffects = getConfig().getBoolean("particle-effects", true);
+            allowCrossWorld = getConfig().getBoolean("allow-cross-world", true);
 
             requestManager = new RequestManager(timeout * 1000L);
             cooldownUtil = new CooldownUtil(cooldown * 1000L);
@@ -40,11 +44,18 @@ public class BasicTp extends JavaPlugin {
             register("tplist", new TpListCommand(this));
             register("tpignore", new TpIgnoreCommand(this));
 
-            getServer().getGlobalRegionScheduler().runAtFixedRate(
+            requestCleanupTask = getServer().getGlobalRegionScheduler().runAtFixedRate(
                 this,
                 task -> requestManager.cleanup(),
                 20 * 30,
                 20 * 30
+            );
+
+            cooldownCleanupTask = getServer().getGlobalRegionScheduler().runAtFixedRate(
+                this,
+                task -> cooldownUtil.cleanup(),
+                20 * 60,
+                20 * 60
             );
 
             if (LuckPermsUtil.isLoaded()) {
@@ -72,6 +83,11 @@ public class BasicTp extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        try {
+            var cancelMethod = requestCleanupTask.getClass().getMethod("cancel");
+            cancelMethod.invoke(requestCleanupTask);
+            cancelMethod.invoke(cooldownCleanupTask);
+        } catch (Exception ignored) {}
         getLogger().info("BasicTp disabled!");
     }
 
@@ -85,5 +101,9 @@ public class BasicTp extends JavaPlugin {
 
     public boolean hasParticleEffects() {
         return particleEffects;
+    }
+
+    public boolean isAllowCrossWorld() {
+        return allowCrossWorld;
     }
 }

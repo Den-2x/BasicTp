@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
+import java.util.UUID;
 
 public final class LuckPermsUtil {
 
@@ -16,28 +17,43 @@ public final class LuckPermsUtil {
     private static Method getPrimaryGroupMethod;
     private static Method getPermissionDataMethod;
     private static Method checkPermissionMethod;
-    private static boolean loaded = false;
+    private static Method getUserByUuidMethod;
+    private static Method asBooleanMethod;
+    private static Boolean loaded;
 
     private LuckPermsUtil() {}
 
     public static boolean isLoaded() {
-        if (loaded) return true;
+        if (loaded != null) return loaded;
         try {
             var lpClass = Class.forName("net.luckperms.api.LuckPermsProvider");
             var getMethod = lpClass.getMethod("get");
             api = getMethod.invoke(null);
             var apiClass = Class.forName("net.luckperms.api.LuckPerms");
-            getUserMethod = apiClass.getMethod("getUserManager");
-            getCachedDataMethod = Class.forName("net.luckperms.api.model.user.User").getMethod("getCachedData");
-            getMetaDataMethod = Class.forName("net.luckperms.api.cacheddata.CachedData").getMethod("getMetaData");
-            getPrefixMethod = Class.forName("net.luckperms.api.metadata.MetaData").getMethod("getPrefix");
-            getSuffixMethod = Class.forName("net.luckperms.api.metadata.MetaData").getMethod("getSuffix");
-            getPrimaryGroupMethod = Class.forName("net.luckperms.api.model.user.User").getMethod("getPrimaryGroup");
-            getPermissionDataMethod = Class.forName("net.luckperms.api.cacheddata.CachedData").getMethod("getPermissionData");
-            checkPermissionMethod = Class.forName("net.luckperms.api.cacheddata.PermissionData").getMethod("checkPermission", String.class);
+            var userManagerMethod = apiClass.getMethod("getUserManager");
+            getUserMethod = userManagerMethod;
+            var userClass = Class.forName("net.luckperms.api.model.user.User");
+            getCachedDataMethod = userClass.getMethod("getCachedData");
+            var cachedDataClass = Class.forName("net.luckperms.api.cacheddata.CachedData");
+            getMetaDataMethod = cachedDataClass.getMethod("getMetaData");
+            var metaDataClass = Class.forName("net.luckperms.api.metadata.MetaData");
+            getPrefixMethod = metaDataClass.getMethod("getPrefix");
+            getSuffixMethod = metaDataClass.getMethod("getSuffix");
+            getPrimaryGroupMethod = userClass.getMethod("getPrimaryGroup");
+            getPermissionDataMethod = cachedDataClass.getMethod("getPermissionData");
+            var permissionDataClass = Class.forName("net.luckperms.api.cacheddata.PermissionData");
+            checkPermissionMethod = permissionDataClass.getMethod("checkPermission", String.class);
+
+            var userManager = getUserMethod.invoke(api);
+            getUserByUuidMethod = userManager.getClass().getMethod("getUser", UUID.class);
+
+            var resultClass = Class.forName("net.luckperms.api.util.Tristate");
+            asBooleanMethod = resultClass.getMethod("asBoolean");
+
             loaded = true;
             return true;
         } catch (Exception e) {
+            loaded = false;
             return false;
         }
     }
@@ -47,8 +63,7 @@ public final class LuckPermsUtil {
         if (!isLoaded()) return null;
         try {
             var userManager = getUserMethod.invoke(api);
-            var getUserByUuid = userManager.getClass().getMethod("getUser", java.util.UUID.class);
-            var user = getUserByUuid.invoke(userManager, player.getUniqueId());
+            var user = getUserByUuidMethod.invoke(userManager, player.getUniqueId());
             if (user == null) return null;
             var data = getCachedDataMethod.invoke(user);
             var meta = getMetaDataMethod.invoke(data);
@@ -63,8 +78,7 @@ public final class LuckPermsUtil {
         if (!isLoaded()) return null;
         try {
             var userManager = getUserMethod.invoke(api);
-            var getUserByUuid = userManager.getClass().getMethod("getUser", java.util.UUID.class);
-            var user = getUserByUuid.invoke(userManager, player.getUniqueId());
+            var user = getUserByUuidMethod.invoke(userManager, player.getUniqueId());
             if (user == null) return null;
             var data = getCachedDataMethod.invoke(user);
             var meta = getMetaDataMethod.invoke(data);
@@ -79,8 +93,7 @@ public final class LuckPermsUtil {
         if (!isLoaded()) return null;
         try {
             var userManager = getUserMethod.invoke(api);
-            var getUserByUuid = userManager.getClass().getMethod("getUser", java.util.UUID.class);
-            var user = getUserByUuid.invoke(userManager, player.getUniqueId());
+            var user = getUserByUuidMethod.invoke(userManager, player.getUniqueId());
             if (user == null) return null;
             return (String) getPrimaryGroupMethod.invoke(user);
         } catch (Exception e) {
@@ -92,13 +105,12 @@ public final class LuckPermsUtil {
         if (isLoaded()) {
             try {
                 var userManager = getUserMethod.invoke(api);
-                var getUserByUuid = userManager.getClass().getMethod("getUser", java.util.UUID.class);
-                var user = getUserByUuid.invoke(userManager, player.getUniqueId());
+                var user = getUserByUuidMethod.invoke(userManager, player.getUniqueId());
                 if (user != null) {
                     var data = getCachedDataMethod.invoke(user);
                     var permData = getPermissionDataMethod.invoke(data);
                     var result = checkPermissionMethod.invoke(permData, permission);
-                    return (boolean) result.getClass().getMethod("asBoolean").invoke(result);
+                    return (boolean) asBooleanMethod.invoke(result);
                 }
             } catch (Exception ignored) {}
         }

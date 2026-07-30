@@ -43,7 +43,7 @@ public class TpaHereCommand implements CommandExecutor {
             return true;
         }
 
-        if (!plugin.getConfig().getBoolean("allow-cross-world", true)) {
+        if (!plugin.isAllowCrossWorld()) {
             if (!target.getWorld().equals(player.getWorld())) {
                 MsgUtil.error(sender, LangUtil.get("tpa-cross-world"));
                 return true;
