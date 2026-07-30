@@ -1,54 +1,33 @@
 # BasicTp
 
-A simple teleportation plugin for Paper 1.21.5.
+A Paper 1.21.5 teleportation plugin with requests, accept/deny, and ignore.
 
-## Commands
+## build
 
-| Command | Description |
+run `build.bat` or `mvn clean package` - the jar will be in `build/`.
+
+## usage
+
+1. put the jar in `plugins/` and restart the server
+2. use `/tpa <player>` to send a teleport request
+
+## commands
+
+| command | description |
 |---------|-------------|
-| `/tpa <player>` | Request to teleport to a player |
-| `/tpahere <player>` | Request a player to teleport to you |
-| `/tpaccept [player]` | Accept a teleport request |
-| `/tpdeny [player]` | Deny a teleport request |
-| `/tpcancel` | Cancel your outgoing request |
-| `/tp` | Reload config or show info (admin) |
+| `/tpa <player>` | request to teleport to a player |
+| `/tpahere <player>` | request a player to teleport to you |
+| `/tpaccept [player]` (`/tpyes`) | accept a request |
+| `/tpdeny [player]` (`/tpno`) | deny a request |
+| `/tpcancel` (`/tpacancel`) | cancel your outgoing request |
+| `/tplist` | show pending requests |
+| `/tpignore <player>` | toggle ignore requests from a player |
 
-## Permissions
+## config
 
-| Permission | Default | Description |
-|------------|---------|-------------|
-| `basictp.*` | op | All permissions |
-| `basictp.tpa` | true | Use `/tpa` |
-| `basictp.tpahere` | true | Use `/tpahere` |
-| `basictp.tpaccept` | true | Use `/tpaccept` |
-| `basictp.tpdeny` | true | Use `/tpdeny` |
-| `basictp.tpcancel` | true | Use `/tpcancel` |
-| `basictp.admin` | op | Use `/tp` |
+default config is created automatically at `plugins/BasicTp/config.yml`.
 
-## Config
+## requirements
 
-```yaml
-# timeout in seconds before a request expires
-request-timeout: 60
-
-# cooldown in seconds between requests
-cooldown: 5
-
-# allow cross-world teleportation
-allow-cross-world: true
-
-# show particle effects on teleport
-particle-effects: true
-```
-
-## Build
-
-Requires **Java 21+** and **Maven**.
-
-Run `build.bat`:
-
-```
-build.bat
-```
-
-The compiled jar will be at `build/BasicTp.jar`.
+- paper 1.21.5
+- java 21
